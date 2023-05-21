@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "697320742663",
+    "firebase_url": "https://lista-zakupow-flutter-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "lista-zakupow-flutter",
+    "storage_bucket": "lista-zakupow-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697320742663:android:129b0e22209c7b10e22fa2",
+        "android_client_info": {
+          "package_name": "com.example.lista_zakupowa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697320742663-5iu7snirno2823t1f4porq6e2hdisrq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqDgV4G6aQr76Rn573YVlTOAEUPjwj36Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697320742663-5iu7snirno2823t1f4porq6e2hdisrq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
