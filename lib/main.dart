@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'My App',
             home: MyHomePage(deviceId: deviceId),
-              debugShowCheckedModeBanner: false
+               debugShowCheckedModeBanner: false
           );
         } else {
           return const Center(

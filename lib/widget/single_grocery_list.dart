@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lista_zakupowa/models/object_item_list.dart';
+import 'package:lista_zakupowa/widget/editItem.dart';
 import 'package:lista_zakupowa/widget/save_new_item.dart';
 import 'package:firebase_database/firebase_database.dart';
-
-import '../models/object_grocery_list.dart';
 
 class SingleGroceryList extends StatefulWidget {
   SingleGroceryList(this._groceryList, this.title, {super.key, required this.passedId});
@@ -50,9 +47,33 @@ class _SingleGroceryList extends State<SingleGroceryList> {
     return ListTile(
       title: Text(groceryList.getItem()),
       subtitle: Text(groceryList.getAmount().toString()),
-      trailing: Icon(
-        groceryList.isCollected() ? Icons.check : Icons.check_box_outline_blank,
-        color: groceryList.isCollected() ? Colors.green : null,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            groceryList.isCollected() ? Icons.check : Icons.check_box_outline_blank,
+            color: groceryList.isCollected() ? Colors.green : null,
+          ),
+          const SizedBox(width: 16),
+          GestureDetector(
+            onTap: () {
+              _editItem(id, widget.title, groceryList);
+            },
+            child: const Icon(
+              Icons.border_color_outlined,
+              color: Colors.orange,
+            ),
+          ),const SizedBox(width: 16),
+          GestureDetector(
+            onTap: () {
+              deleteItem(groceryList);
+            },
+            child: const Icon(
+              Icons.clear,
+              color: Colors.red,
+            ),
+          ),
+        ],
       ),
       onTap: () {
         setState(() {
@@ -75,7 +96,26 @@ class _SingleGroceryList extends State<SingleGroceryList> {
     })).then((item) => {
       widget._groceryList.add(ObjectItemList(item['name'], int.parse(item['amount']),item['collected']))
     });
-    // widget._groceryList.add(ObjectItemList(value.toString()));
+  }
+
+  void _editItem(passedId, listName, ObjectItemList groceryList) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      return EditItem(passedId: passedId, listName: listName, itemName: groceryList.getItem(), amount: groceryList.getAmount(), collected: groceryList.isCollected());
+    })).then((item) => {
+      setState(() {
+        widget._groceryList.remove(groceryList);
+        widget._groceryList.add(ObjectItemList(item['name'], int.parse(item['amount']),item['collected']));
+      })
+
+    });
+  }
+
+  void deleteItem(ObjectItemList groceryList) {
+    databaseReference.child('users').child(widget.passedId).child(widget.title).child(groceryList.getItem()).remove();
+    setState(() {
+      widget._groceryList.remove(groceryList);
+    });
   }
 
   void setCollected(passedId, listName, item, isCollected, amount) {
