@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+
+//widok dodawania nowego produktu
 class SaveNewItem extends StatelessWidget {
   SaveNewItem({super.key, required this.passedId, required this.listName});
-
+  //referencja bazy danych
   DatabaseReference databaseReference = FirebaseDatabase.instance.ref('users');
+  //input dla nazwy produktu
   final TextEditingController _nameControl = TextEditingController();
+  //input dla ilości produktu
   final TextEditingController _amountControl = TextEditingController();
+  //id urządzenia
   final String passedId;
+  //nazwa listy
   final String listName;
 
   @override
@@ -43,12 +49,14 @@ class SaveNewItem extends StatelessWidget {
                 )),
             ElevatedButton(
               onPressed: () {
+                //dodanie produktu do bazy danych
                 databaseReference.child(passedId).child(listName)
                     .child(_nameControl.text)
                     .set({
                   'amount': _amountControl.text,
                   'collected': false
                 });
+                //przesłanie do poprzedniego widoku produktu
                 Navigator.pop(context, {
                   'name': _nameControl.text,
                   'amount': _amountControl.text,
@@ -63,5 +71,4 @@ class SaveNewItem extends StatelessWidget {
           ],
         ));
   }
-
 }

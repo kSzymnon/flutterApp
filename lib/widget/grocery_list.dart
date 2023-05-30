@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lista_zakupowa/models/object_grocery_list.dart';
 import 'package:lista_zakupowa/widget/single_grocery_list.dart';
 
+
 class GroceryList extends StatefulWidget {
   GroceryList(this._groceryList, {super.key, required this.passedId});
-
+  //lista produktow
   List<ObjectGroceryList> _groceryList = <ObjectGroceryList>[];
+  //id urzadzenia
   final String passedId;
 
   @override
-  State<GroceryList> createState() => _GroceryListState(id: passedId);
+  State<GroceryList> createState() => _GroceryListState();
 }
 
 class _GroceryListState extends State<GroceryList> {
-  _GroceryListState({required this.id});
-
-  final String id;
+  _GroceryListState();
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +47,11 @@ class _GroceryListState extends State<GroceryList> {
     );
   }
 
+  //przeniesienie do widoku
   void _chanceToGroceryList(ObjectGroceryList groceryList) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
-      return SingleGroceryList(groceryList.groceryList, groceryList.title, passedId: id);
+      return SingleGroceryList(groceryList.groceryList, groceryList.title, passedId: widget.passedId);
     }));
   }
 }

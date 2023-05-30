@@ -1,3 +1,4 @@
+//interface produktu
 class ObjectItemList {
   late int amount;
   late String item;
